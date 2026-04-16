@@ -1,4 +1,4 @@
-name: Deploy backend
+name: Deploy backend (test SSH)
 
 on:
   push:
@@ -6,18 +6,18 @@ on:
       - main
 
 jobs:
-  deploy:
+  ssh-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Connect to VM and deploy backend
+      - name: Test SSH connection to VM
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.VM_HOST }}
           username: ${{ secrets.VM_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ~/weather-backend
-            git pull
-            docker build -t backend:latest .
-            kubectl rollout restart deployment backend
+            echo "✅ SSH connection successful"
+            whoami
+            hostname
+            pwd
