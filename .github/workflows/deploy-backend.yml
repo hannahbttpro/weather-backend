@@ -23,7 +23,7 @@ jobs:
           username: ${{ secrets.VM_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            echo "✅ SSH connection successful"
-            whoami
-            hostname
-            pwd
+            cd ~/weather-backend
+            git pull
+            docker build -t backend:latest .
+            kubectl rollout restart deployment backend
